@@ -8,7 +8,6 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 
 axios.interceptors.request.use(request => {
-  console.log(request);
   //You can EDIT request config BEFORE you sent it, e.g. add authorization headers
   return request;
 }, error => {
@@ -17,7 +16,6 @@ axios.interceptors.request.use(request => {
 })
 
 axios.interceptors.response.use(response => {
-  console.log(response);
   //You can EDIT response config BEFORE you receive it, e.g. add headers
   return response;
 }, error => {
