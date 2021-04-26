@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Post from '../../../components/Post/Post';
-import './Posts.css';
 import axios from '../../../axios';
+import './Posts.css';
 
 
 class Posts extends Component {
@@ -25,7 +25,7 @@ class Posts extends Component {
   }
 
   post_selected = id => {
-    this.setState({ selected_post_id: id} );
+    this.props.history.push('/' + id)
   }
 
   render() {
@@ -34,11 +34,13 @@ class Posts extends Component {
       posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>
     } else {
       posts = this.state.posts.map(post => {
-        return <Post
+        return (
+          <Post
             key={post.id}
             title={post.title}
             author={post.author}
             clicked={() => this.post_selected(post.id)} />
+        )
       })
     }
     return (

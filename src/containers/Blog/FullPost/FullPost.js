@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from '../../../axios';
 import './FullPost.css';
 
 class FullPost extends Component {
 
+  state = {
+    loaded_post: null
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      axios
+        .get('/posts/' + this.props.match.params.id)
+        .then(response => {
+          this.setState({loaded_post: response.data})
+        })
+    }
+  }
+
   render () {
     let post;
-    if (!this.props.id) {
+    if (!this.state.loaded_post) {
       post = <p>Please select a Post!</p>;
     } else {
-      let selected_post = this.props.posts.filter(post => post.id === this.props.id);
       post = (
           <div className="FullPost">
-            <h1>{selected_post[0].title}</h1>
-            <p>{selected_post[0].body}</p>
+            <h1>{this.state.loaded_post.title}</h1>
+            <p>{this.state.loaded_post.body}</p>
             <div className="Edit">
               <button className="Delete">Delete</button>
             </div>
